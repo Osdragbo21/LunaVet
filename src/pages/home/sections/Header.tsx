@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { Menu, X, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { useTheme } from '../hooks/useTheme';
 import { ThemeToggle } from '../components/ThemeToggle';
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { isDarkMode, toggleTheme } = useTheme();
+  const navigate = useNavigate();
 
   return (
     <nav className="fixed w-full z-50 bg-[#FFFFFF]/80 dark:bg-[#1E293B]/80 backdrop-blur-md border-b border-black/5 dark:border-white/5 transition-colors duration-300">
@@ -31,7 +33,10 @@ export const Header = () => {
 
           <div className="hidden lg:flex items-center space-x-4">
             <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
-            <button className="bg-[#3B82F6] hover:bg-[#2563EB] text-white px-5 py-2.5 rounded-[12px] font-medium transition-all shadow-md flex items-center gap-2">
+            <button 
+              onClick={() => navigate('/login')}
+              className="bg-[#3B82F6] hover:bg-[#2563EB] text-white px-5 py-2.5 rounded-[12px] font-medium transition-all shadow-md flex items-center gap-2"
+            >
               Portal Vet <ArrowRight size={16} />
             </button>
           </div>

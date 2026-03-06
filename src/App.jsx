@@ -1,13 +1,11 @@
 import React from 'react';
-// Importa la página principal del Login que acabas de crear
-import { LoginPage } from './pages/login/LoginPage';
-import { HomePage } from './pages/home/HomePage';
+import { RouterProvider } from "react-router-dom";
+import { appRouter } from "./router/app.router";
 
-function App() {
+export default function App() {
   return (
-    <LoginPage />
-    //<HomePage />
+    <RouterProvider router={appRouter} />
   );
 }
 
-export default App;
+
