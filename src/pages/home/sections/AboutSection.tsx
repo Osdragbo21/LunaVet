@@ -1,95 +1,52 @@
-import {motion} from "framer-motion";
-import {BookOpen, Eye, Heart, Trophy} from "lucide-react";
-import {Card, CardContent} from "@/components/ui/card";
+import React from 'react';
+import { ShieldCheck, Heart, Activity, Award } from 'lucide-react';
 
-const values = [
-  {
-    icon: BookOpen,
-    title: "Excelencia Académica",
-    desc: "Programas rigurosos y actualizados que preparan a nuestros estudiantes para los retos del futuro."
-  },
-  {
-    icon: Heart,
-    title: "Valores Humanos",
-    desc: "Fomentamos el respeto, la responsabilidad y la empatía como pilares de la formación integral."
-  },
-  {
-    icon: Eye,
-    title: "Innovación Educativa",
-    desc: "Incorporamos tecnología y metodologías modernas para un aprendizaje significativo."
-  },
-  {
-    icon: Trophy,
-    title: "Desarrollo Integral",
-    desc: "Actividades deportivas, artísticas y culturales que complementan la formación académica."
-  },
-];
+export const AboutSection = () => {
+  const pillars = [
+    { icon: ShieldCheck, title: "Excelencia Médica", desc: "Protocolos rigurosos y diagnósticos precisos para cada caso." },
+    { icon: Heart, title: "Empatía Animal", desc: "Fomentamos el respeto, el amor y el trato libre de miedo." },
+    { icon: Activity, title: "Innovación Clínica", desc: "Equipos de laboratorio y quirófanos de última generación." },
+    { icon: Award, title: "Atención Integral", desc: "Desde estética hasta hospitalización en un solo lugar." }
+  ];
 
-const fadeUp = {
-  hidden: {opacity: 0, y: 30},
-  visible: (i: number) => ({opacity: 1, y: 0, transition: {delay: i * 0.15, duration: 0.5}}),
+  return (
+    <section id="conocenos" className="py-24 bg-[#FFFFFF] dark:bg-[#1E293B] transition-colors">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-3xl mx-auto mb-16">
+          <h2 className="text-4xl font-bold mb-4">Conócenos</h2>
+          <p className="text-[#64748B] dark:text-[#94A3B8] text-lg">
+            Desde nuestra fundación, LunaVet se ha dedicado a brindar medicina de 
+            calidad con calidez humana. Trabajamos día a día para mantener familias unidas y mascotas sanas.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+          <div className="p-10 rounded-[20px] bg-[#F8FAFC] dark:bg-[#0F172A] border border-black/5 dark:border-white/5 hover:border-[#3B82F6]/50 transition-colors">
+            <h3 className="text-2xl font-bold mb-4 text-[#3B82F6]">Nuestra Misión</h3>
+            <p className="text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+              Ofrecer servicios médicos veterinarios integrales y de excelencia, garantizando la salud y bienestar de los animales de compañía a través de un equipo médico altamente capacitado y tecnología de vanguardia.
+            </p>
+          </div>
+          <div className="p-10 rounded-[20px] bg-[#F8FAFC] dark:bg-[#0F172A] border border-black/5 dark:border-white/5 hover:border-[#3B82F6]/50 transition-colors">
+            <h3 className="text-2xl font-bold mb-4 text-[#3B82F6]">Nuestra Visión</h3>
+            <p className="text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+              Ser la clínica veterinaria de referencia nacional por nuestra innovación médica, el trato compasivo hacia nuestros pacientes y la transparencia clínica con sus familias.
+            </p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {pillars.map((item, index) => (
+            <div key={index} className="p-8 rounded-[16px] bg-[#F8FAFC] dark:bg-[#0F172A] border border-black/5 dark:border-white/5 text-center flex flex-col items-center group hover:-translate-y-1 transition-transform">
+              <div className="w-14 h-14 bg-white dark:bg-[#1E293B] rounded-full flex items-center justify-center text-[#3B82F6] shadow-md mb-6 group-hover:scale-110 transition-transform">
+                <item.icon size={28} />
+              </div>
+              <h4 className="font-bold text-lg mb-3">{item.title}</h4>
+              <p className="text-sm text-[#64748B] dark:text-[#94A3B8]">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 };
-
-export const AboutSection = () => (
-  <section id="conocenos" className="bg-secondary/30 py-20">
-    <div className="container mx-auto px-4">
-      <motion.div
-        className="mx-auto mb-16 max-w-2xl text-center"
-        initial={{opacity: 0, y: 20}}
-        whileInView={{opacity: 1, y: 0}}
-        viewport={{once: true}}
-        transition={{duration: 0.5}}
-      >
-        <h2 className="mb-4 text-3xl font-bold text-foreground md:text-4xl">Conócenos</h2>
-        <p className="text-muted-foreground">
-          Desde nuestra fundación, el Centro Educativo Pandora se ha dedicado a brindar una educación
-          de calidad con calidez humana. Nuestra comunidad educativa trabaja día a día para formar
-          ciudadanos íntegros, críticos y comprometidos con la sociedad.
-        </p>
-      </motion.div>
-
-      <div className="mx-auto mb-16 grid max-w-4xl gap-6 md:grid-cols-2">
-        <motion.div
-          className="rounded-xl border color-card p-8"
-          initial={{opacity: 0, x: -20}}
-          whileInView={{opacity: 1, x: 0}}
-          viewport={{once: true}}
-        >
-          <h3 className="mb-3 text-xl font-bold text-primary">Nuestra Misión</h3>
-          <p className="text-muted-foreground">
-            Formar estudiantes competentes, creativos y con sólidos valores éticos a través de una
-            educación integral que les permita enfrentar los desafíos de un mundo en constante cambio.
-          </p>
-        </motion.div>
-        <motion.div
-          className="rounded-xl border bg-card p-8"
-          initial={{opacity: 0, x: 20}}
-          whileInView={{opacity: 1, x: 0}}
-          viewport={{once: true}}
-        >
-          <h3 className="mb-3 text-xl font-bold text-primary">Nuestra Visión</h3>
-          <p className="text-muted-foreground">
-            Ser reconocidos como una institución educativa líder en innovación pedagógica, formación
-            en valores y excelencia académica en todos los niveles educativos.
-          </p>
-        </motion.div>
-      </div>
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {values.map((v, i) => (
-          <motion.div key={v.title} custom={i} variants={fadeUp} initial="hidden" whileInView="visible" viewport={{once: true}}>
-            <Card className="h-full border-none bg-card shadow-md transition-shadow hover:shadow-lg">
-              <CardContent className="flex flex-col items-center p-6 text-center">
-                <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
-                  <v.icon className="h-7 w-7 text-primary" />
-                </div>
-                <h4 className="mb-2 font-['Playfair_Display'] text-lg font-bold text-foreground">{v.title}</h4>
-                <p className="text-sm text-muted-foreground">{v.desc}</p>
-              </CardContent>
-            </Card>
-          </motion.div>
-        ))}
-      </div>
-    </div>
-  </section>
-);

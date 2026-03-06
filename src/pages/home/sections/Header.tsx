@@ -1,108 +1,50 @@
-import {useState} from "react";
-import {Link} from "react-router";
-import {Menu, X} from "lucide-react";
-import {Button} from "@/components/ui/button";
-import {ThemeToggle} from "../componets/ThemeToggle";
-import pandoraLogo from "@/assets/pandora.png";
-
-const navLinks = [
-  {label: "Inicio", href: "#inicio"},
-  {label: "Conócenos", href: "#conocenos"},
-  {label: "Oferta Académica", href: "#oferta"},
-  {label: "Admisiones", href: "#admisiones"},
-  {label: "Noticias", href: "#noticias"},
-  {label: "Contacto", href: "#contacto"},
-];
+import React, { useState } from 'react';
+import { Menu, X, ArrowRight } from 'lucide-react';
+import { useTheme } from '../hooks/useTheme';
+import { ThemeToggle } from '../components/ThemeToggle';
 
 export const Header = () => {
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const scrollTo = (href: string) => {
-    setMobileOpen(false);
-    const el = document.querySelector(href);
-    el?.scrollIntoView({behavior: "smooth"});
-  };
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isDarkMode, toggleTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-background/90 backdrop-blur-md">
-      <div className="container mx-auto flex items-center justify-between px-4 py-3">
-        <a href="#inicio" onClick={() => scrollTo("#inicio")} className="flex items-center gap-3">
-          <img src={pandoraLogo} alt="Pandora" className="h-10 w-10 rounded-full object-cover" />
-          <span className="font-['Playfair_Display'] text-lg font-bold tracking-tight text-foreground md:text-xl">
-            Centro Educativo Pandora
-          </span>
-        </a>
+    <nav className="fixed w-full z-50 bg-[#FFFFFF]/80 dark:bg-[#1E293B]/80 backdrop-blur-md border-b border-black/5 dark:border-white/5 transition-colors duration-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          
+          <div className="flex items-center gap-3 cursor-pointer">
+            <img 
+              src="/Logo_LunaVet.png" 
+              alt="LunaVet Logo" 
+              className="w-10 h-10 object-contain drop-shadow-sm"
+              onError={(e: any) => { e.target.onerror = null; e.target.src = "[https://cdn-icons-png.flaticon.com/512/1864/1864509.png](https://cdn-icons-png.flaticon.com/512/1864/1864509.png)"; }}
+            />
+            <span className="font-bold text-2xl tracking-tight">LunaVet</span>
+          </div>
 
-        {/* Desktop nav */}
-        <nav className="hidden items-center gap-1 lg:flex">
-          {navLinks.map((l) => (
-            <Button
-              key={l.href}
-              onClick={() => scrollTo(l.href)}
-              variant="ghost"
-              className="
-                neon-gold-border 
-                rounded-md 
-                border 
-                border-transparent 
-                px-3 
-                py-2 
-                text-sm 
-                font-medium 
-                text-muted-foreground 
-                transition-all 
-                hover:text-foreground
-              "
-            >
-              {l.label}
-            </Button>
-          ))}
-        </nav>
+          <div className="hidden lg:flex items-center space-x-8">
+            <a href="#inicio" className="text-sm font-medium hover:text-[#3B82F6] transition-colors">Inicio</a>
+            <a href="#conocenos" className="text-sm font-medium hover:text-[#3B82F6] transition-colors">Conócenos</a>
+            <a href="#servicios" className="text-sm font-medium hover:text-[#3B82F6] transition-colors">Servicios</a>
+            <a href="#contacto" className="text-sm font-medium hover:text-[#3B82F6] transition-colors">Contacto</a>
+          </div>
 
-        <div className="flex items-center gap-2">
-          <ThemeToggle />
-          <Link to="/login" className="hidden sm:block">
-            <Button variant="secondary" className="neon-gold-border font-semibold">Iniciar Sesión</Button>
-          </Link>
-          <button
-            className="ml-1 lg:hidden"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menu"
-          >
-            {mobileOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="hidden lg:flex items-center space-x-4">
+            <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+            <button className="bg-[#3B82F6] hover:bg-[#2563EB] text-white px-5 py-2.5 rounded-[12px] font-medium transition-all shadow-md flex items-center gap-2">
+              Portal Vet <ArrowRight size={16} />
+            </button>
+          </div>
+
+          <div className="lg:hidden flex items-center gap-4">
+            <ThemeToggle isDarkMode={isDarkMode} toggleTheme={toggleTheme} />
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="p-2">
+              {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
+
         </div>
       </div>
-
-      {/* Mobile nav */}
-      {mobileOpen && (
-        <nav className="border-t bg-background px-4 pb-4 lg:hidden">
-          {navLinks.map((l) => (
-            <button
-              key={l.href}
-              onClick={() => scrollTo(l.href)}
-              className="
-                neon-gold-border 
-                block 
-                w-full 
-                py-3 
-                text-left 
-                text-sm 
-                font-medium 
-                text-muted-foreground 
-                transition-colors 
-                hover:text-foreground
-                mt-2
-              "
-            >
-              {l.label}
-            </button>
-          ))}
-          <Link to="/login" className="mt-2 block sm:hidden">
-            <Button variant="secondary" className="neon-gold-border w-full bg-primary font-semibold">Iniciar Sesión</Button>
-          </Link>
-        </nav>
-      )}
-    </header>
+    </nav>
   );
 };
