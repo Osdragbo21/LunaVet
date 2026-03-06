@@ -1,13 +1,14 @@
 import React from 'react';
 import { User, Lock, Eye, EyeOff, ArrowRight } from 'lucide-react';
 
-// Importaciones de tus piezas UI (Verifica que la ruta sea correcta)
+// Importamos los componentes base de UI reutilizables
 import { Input } from '../../../components/ui/Input';
 import { Button } from '../../../components/ui/Button';
-import { Label } from '../../../components/ui/Label';
 
-// EXPORTACIÓN NOMBRADA
-export const FormLogin = ({ loginData }) => {
+// Nota: Asumiendo que Label también lo moviste a ui/. Si no, puedes usar una etiqueta <label> nativa.
+// import { Label } from '../../../components/ui/Label';
+
+export const FormLogin = ({ loginData }: { loginData: any }) => {
     const {
         username, setUsername,
         password, setPassword,
@@ -18,7 +19,7 @@ export const FormLogin = ({ loginData }) => {
     return (
         <div className="relative w-full">
 
-            {/* Sistema de Partículas (NUEVO) */}
+            {/* Sistema de Partículas */}
             <div className="absolute inset-0 pointer-events-none z-0">
                 <div className="absolute -top-8 -left-8 w-6 h-6 bg-[#3B82F6]/40 dark:bg-[#3B82F6]/60 rounded-full blur-md animate-pulse" style={{ animationDuration: '3s' }}></div>
                 <div className="absolute top-1/4 -right-10 w-4 h-4 bg-[#3B82F6]/50 dark:bg-[#3B82F6]/70 rounded-full blur-sm animate-ping" style={{ animationDuration: '4s' }}></div>
@@ -32,55 +33,71 @@ export const FormLogin = ({ loginData }) => {
                 <form onSubmit={handleLogin} className="space-y-6">
                 
                 <div className="space-y-2">
-                    <Label htmlFor="username">Usuario</Label>
-                    <Input 
-                    id="username"
-                    icon={User}
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="ej: admin.vet"
-                    required
-                    />
+                    <label htmlFor="username" className="text-sm font-semibold text-[#0F172A] dark:text-[#F8FAFC] block text-left">Usuario</label>
+                    <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#64748B] dark:text-[#94A3B8]">
+                            <User size={20} />
+                        </div>
+                        <Input 
+                            id="username"
+                            type="text"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                            placeholder="ej: admin.vet"
+                            className="pl-11"
+                            required
+                        />
+                    </div>
                 </div>
 
                 <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                    <Label htmlFor="password">Contraseña</Label>
-                    <a href="#" className="text-sm font-medium text-[#3B82F6] hover:text-[#2563EB] hover:underline transition-colors">
-                        ¿La olvidaste?
-                    </a>
+                        <label htmlFor="password" className="text-sm font-semibold text-[#0F172A] dark:text-[#F8FAFC] block text-left">Contraseña</label>
+                        <a href="#" className="text-sm font-medium text-[#3B82F6] hover:text-[#2563EB] hover:underline transition-colors">
+                            ¿La olvidaste?
+                        </a>
                     </div>
-                    <Input 
-                    id="password"
-                    icon={Lock}
-                    type={showPassword ? "text" : "password"}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder="••••••••"
-                    required
-                    rightElement={
-                        <button type="button" onClick={togglePassword} aria-label="Mostrar contraseña">
-                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-                        </button>
-                    }
-                    />
+                    <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#64748B] dark:text-[#94A3B8]">
+                            <Lock size={20} />
+                        </div>
+                        <Input 
+                            id="password"
+                            type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="••••••••"
+                            className="pl-11 pr-12"
+                            required
+                        />
+                        <div className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-[#64748B] dark:text-[#94A3B8] hover:text-[#3B82F6] transition-colors">
+                            <button type="button" onClick={togglePassword} aria-label="Mostrar contraseña">
+                                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                            </button>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="flex items-center text-left">
                     <input
-                    id="remember-me"
-                    type="checkbox"
-                    className="w-4 h-4 rounded border-gray-300 accent-[#3B82F6] cursor-pointer"
+                        id="remember-me"
+                        type="checkbox"
+                        className="w-4 h-4 rounded border-gray-300 accent-[#3B82F6] cursor-pointer"
                     />
                     <label htmlFor="remember-me" className="ml-2 block text-sm text-[#64748B] dark:text-[#94A3B8] cursor-pointer">
-                    Mantener sesión iniciada
+                        Mantener sesión iniciada
                     </label>
                 </div>
 
-                <Button type="submit" isLoading={isLoading}>
-                    <span>Iniciar Sesión</span>
-                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                <Button type="submit" variant="primary" className="w-full flex items-center justify-center gap-2" disabled={isLoading}>
+                    {isLoading ? (
+                        <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                    ) : (
+                        <>
+                            <span>Iniciar Sesión</span>
+                            <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                        </>
+                    )}
                 </Button>
 
                 </form>

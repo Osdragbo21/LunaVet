@@ -8,13 +8,13 @@ export const useLogin = () => {
 
     const togglePassword = () => setShowPassword(!showPassword);
 
-    const handleLogin = (e) => {
+    const handleLogin = (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         // Simulación de petición al API
         setTimeout(() => {
-        setIsLoading(false);
-        console.log('Autenticando usuario:', username);
+            setIsLoading(false);
+            console.log('Autenticando usuario:', username);
         }, 1500);
     };
 
@@ -29,3 +29,5 @@ export const useLogin = () => {
         handleLogin
     };
 };
+
+
